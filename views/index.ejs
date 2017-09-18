@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="zh-CN" style="font-size: 52.0833px;">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <script>
+        !function (n) { var e = n.document, t = e.documentElement, i = 720, d = i / 100, o = "orientationchange" in n ? "orientationchange" : "resize", a = function () { var n = t.clientWidth || 320; n > 720 && (n = 720), t.style.fontSize = n / d + "px" }; e.addEventListener && (n.addEventListener(o, a, !1), e.addEventListener("DOMContentLoaded", a, !1)) } (window);
+    </script>
+    
+
+    <style>
+        /*reset*/
+        swipe-wrap
+        html {
+            word-wrap: break-word;
+            font-family: Arial, Verdana, Sans-serif;
+            display: block;
+        }
+        
+        html,
+        body,
+        #wrapper {
+            height: 100%;
+        }
+        
+        body,
+        h1,
+        h2,
+        h3,
+        p,
+        dl,
+        dd,
+        ol,
+        ul,
+        th,
+        td,
+        form,
+        fieldset,
+        input,
+        button,
+        textarea {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-size: .2rem;
+            color: #333;
+            display: block;
+        }
+        
+        div {
+            display: block;
+        }
+        
+        fieldset,
+        img {
+            border: 0;
+        }
+        
+        li,
+        img,
+        label,
+        input {
+            vertical-align: middle;
+        }
+        
+        a,
+        input,
+        textarea {
+            text-decoration: none;
+            outline: 0;
+        }
+        
+        a {
+            color: #333;
+        }
+        /*业务样式*/
+        
+        #wrapper {
+            position: relative;
+            width: 7.2rem;
+            margin: 0 auto;
+            z-index: 2;
+        }
+        
+        .channel-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: box;
+            display: -webkit-box;
+            -webkit-box-align: center;
+            -webkit-box-pack: center;
+            padding: .15rem 0;
+        }
+        
+        .channel-header .logo {
+            width: .8rem;
+            padding: 0 .23rem;
+            box-sizing: border-box;
+        }
+        
+        .channel-header .logo img {
+            width: auto;
+            height: .34rem;
+        }
+        
+        .channel-header .search_bar {
+            line-height: .34rem;
+            background: url(http://m.mi.com/component/header/img/search333_5ab6d3c.png) no-repeat;
+            background-size: 101% 101%;
+            width: 5.6rem;
+            height: .53rem;
+            border-radius: .05rem;
+            box-sizing: border-box;
+        }
+        
+        .channel-header .search_bar>a {
+            display: block;
+            padding: .12rem .6rem .1rem;
+        }
+        
+        .channel-header .search_bar .text {
+            font-size: .26rem;
+            color: #9C9C9C;
+        }
+        
+        .channel-header .login {
+            display: block;
+            width: .8rem;
+            padding: 0 .15rem;
+            white-space: nowrap;
+            box-sizing: border-box;
+        }
+        
+        .channel-header .login .user {
+            width: .5rem;
+        }
+        
+        .channel-header .login .user img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .channel-header .login .user.state1 {
+            width: .4rem;
+        }
+        /*header*/
+        
+        .channel-index .slider {
+            height: auto;
+            background-color: #fff;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .channel-index .slider .swipe-wrap {
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .channel-index .slider .swipe-wrap>div {
+            float: left;
+            position: relative;
+            text-align: center;
+            overflow: hidden;
+        }
+        
+        .channel-index .slider .swipe-wrap>div a {
+            display: block;
+        }
+        
+        .channel-index .slider .swipe-wrap>div img {
+            height: auto;
+            width: 100%;
+        }
+        /*content*/
+        
+        .f-list .section {
+            margin-top: -1px;
+        }
+        
+        .f-list .divider_line {
+            margin: 0 auto!important;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
+            box-sizing: border-box;
+        }
+        
+        .f-list .cells_auto_fill .body {
+            position: relative;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        
+        .f-list .cells_auto_fill .items {
+            position: absolute;
+        }
+        
+        .f-list .img {
+            position: relative;
+        }
+        
+        .f-list .cells_auto_fill .items img {
+            width: 100%;
+        }
+        
+        .f-list img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .f-list .list_one_type1 .item,
+        .f-list .list_one_type9 .item,
+        .f-list .list_one_type10 .item,
+        .f-list .list_one_type12 .item {
+            position: relative;
+            width: 100%;
+        }
+        
+        .f-list .info {
+            padding: .2rem .27rem;
+        }
+        
+        .f-list .info .l {
+            display: box;
+            display: -webkit-box;
+            box-align: center;
+            -webkit-box-align: center;
+            box-pack: justify;
+            -webkit-box-pack: justify;
+            overflow: hidden;
+        }
+        
+        .f-list .name {
+            font-size: .28rem;
+            color: rgba(0, 0, 0, .87);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .f-list .price {
+            font-size: .32rem;
+            color: #ff6000;
+            margin-top: .08rem;
+            position: relative;
+            margin-left: .2rem;
+        }
+        
+        .f-list .info .l .price {
+            margin-top: 0;
+        }
+        
+        .f-list .price::before {
+            content: "￥";
+            position: absolute;
+            left: -.2rem;
+            top: .01rem;
+            font-size: .2rem;
+            margin-right: .05rem;
+            font-weight: 400;
+        }
+        
+        .f-list .brief {
+            margin-top: .06rem;
+            font-size: .23rem;
+            line-height: .3rem;
+            color: rgba(0, 0, 0, .54);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .f-list .list_two_type1 .box {
+            width: 100%;
+            display: box;
+            display: -webkit-box;
+            box-align: center;
+            -webkit-box-align: center;
+            box-pack: justify;
+            -webkit-box-pack: justify;
+            overflow: hidden;
+        }
+        
+        .f-list .list_two_type1 .item {
+            width: 3.6rem;
+        }
+        
+        .f-list .list_two_type1 .item:first-child {
+            margin-right: .04rem;
+        }
+        
+        .f-list .list_two_type1 .img {
+            width: 3.6rem;
+            height: 3.6rem;
+        }
+        
+        .f-list .tag {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        
+        .f-list .tag img {
+            height: .32rem;
+            width: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="channel-index" data-log="频道">
+            <div class="channel-header" style="background-color: rgba(255, 255, 255, 0);">
+                <div class="logo">
+                    <a href="http://m.mi.com/#/index">
+                        <img src="http://m.mi.com/component/header/img/back2_085f04b.png" class="state2" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                        <img src="http://s1.mi.com/m/images/m/icon_back_n.png" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1); display: none;"
+                            class="state1">
+                    </a>
+                </div>
+                <div class="search_bar" style="border: 1px solid rgb(255, 255, 255);">
+                    <a href="http://m.mi.com/#/search/index" data-stat-id="9e9d2ecaae72ee3a" onclick="_msq.push(['trackEvent', '221a86c5a4688b35-9e9d2ecaae72ee3a', '/#/search/index', 'pcpid', '']);">
+                        <span class="text">搜索商品名称</span>
+                    </a>
+                </div>
+                <div class="login">
+                    <a href="http://m.mi.com/#/cart/index">
+                        <div class="user state2" style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                            <img src="http://m.mi.com/component/header/img/cart_white_35b9dc4.png">
+                        </div>
+                        <div style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1); display: none;" class="user state1">
+                            <img src="http://m.mi.com/component/header/img/cart_ae7d5a3.png">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div id="slider" class="first slider" style="visibility: visible;">
+                <div class="swipe-wrap" style="width: 100%;">
+                    <div data-event="3128wapchannelgallery001001#rid=700ed245c713a07ade516680aea3c950&amp;t=ad&amp;pid=5291&amp;adp=266&amp;adm=711"
+                        data-index="0" style="width: 100%; left: 0px; transition-duration: 0ms; transform: translate(0px, 0px) translateZ(0px);">
+                        <a data-log_code="3128wapchannelgallery001001#rid=700ed245c713a07ade516680aea3c950&amp;t=ad&amp;pid=5291&amp;adp=266&amp;adm=711"
+                            href="http://m.mi.com/#/product/view?product_id=5291" data-stat-id="e869e44e770cdd8d" onclick="_msq.push(['trackEvent', '221a86c5a4688b35-e869e44e770cdd8d', '/#/product/viewproduct_id=5291', 'pcpid', '3128wapchannelgallery001001#rid=700ed245c713a07ade516680aea3c950&amp;t=ad&amp;pid=5291&amp;adp=266&amp;adm=711']);">
+                            <span class="imgurl">
+                            <img src="http://i8.mifile.cn/v1/a1/6c7464a5-b8b5-dcbb-d060-67d461b841d8.webp">
+                        </span>
+                            </a>
+                </div>
+                <!--v-repeat-gallery-->
+            </div>
+        
+        </div>
+        <div class="first">
+            <div class="f-list">
+                <div class="section">
+                
+                    <div class="divider_line" style="width:100%;height:0.16rem; border-bottom: 0.16rem solid #f5f5f5">
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="cells_auto_fill">
+                        <div data-index="2" class="body" style="width: 7.2rem; height: 5.08rem;">
+                            <div class="items J_linksign-customize" style="width: 3.58rem; height: 5.08rem; left: 0rem; top: 0rem;">
+                                
+                                    <div class="img">
+                                        <img class="lazy" data-src="//i8.mifile.cn/v1/a1/51930543-f87d-95ac-dbb4-3cca7b8ae8cc.webp?width=358&amp;heihgt=508" src="http://i8.mifile.cn/v1/a1/51930543-f87d-95ac-dbb4-3cca7b8ae8cc.webp?width=358&amp;heihgt=508"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                   
+                            </div>
+                            <div class="items J_linksign-customize" style="width: 3.58rem; height: 2.52rem; left: 3.62rem; top: 0rem;">
+                                
+                                    <div class="img">
+                                        <img class="lazy" data-src="//i8.mifile.cn/v1/a1/15e9e014-c56f-87bb-9e78-270fd56a01a8.webp?width=358&amp;heihgt=252" src="http://i8.mifile.cn/v1/a1/15e9e014-c56f-87bb-9e78-270fd56a01a8.webp?width=358&amp;heihgt=252"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                   
+                            </div>
+                            <div class="items J_linksign-customize" style="width: 3.58rem; height: 2.52rem; left: 3.62rem; top: 2.56rem;">
+                              
+                                    <div class="img">
+                                        <img class="lazy" data-src="//i8.mifile.cn/v1/a1/20b7f813-e72a-c1a0-83b6-9d409ac8c5f3.webp?width=358&amp;heihgt=252" src="http://i8.mifile.cn/v1/a1/20b7f813-e72a-c1a0-83b6-9d409ac8c5f3.webp?width=358&amp;heihgt=252"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                   
+                            </div>
+                            <!--v-repeat-body.items-->
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="section">
+                
+                    <div class="divider_line" style="width:100%;height:0.16rem; border-bottom: 0.16rem solid #f5f5f5">
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="cells_auto_fill">
+                        <div data-index="4" class="body" style="width: 7.2rem; height: 0.8rem;">
+                            <div class="items J_linksign-customize" style="width: 7.2rem; height: 0.8rem; left: 0rem; top: 0rem;">
+                             
+                                    <div class="img">
+                                        <img class="lazy" data-src="//i8.mifile.cn/v1/a1/235932e3-9d72-2d14-0359-33527de8d703.webp?width=720&amp;heihgt=80" src="http://i8.mifile.cn/v1/a1/235932e3-9d72-2d14-0359-33527de8d703.webp?width=720&amp;heihgt=80"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                   
+                            </div>
+                            <!--v-repeat-body.items-->
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="list_one_type12">
+                        <div class="item J_linksign-customize">
+                            
+                                <div class="flex">
+                                    <div class="img">
+                                        <img class="big lazy" data-src="http://i8.mifile.cn/v1/a1/3b4b04f7-ed9a-9bc3-e272-9b84d022607f.webp" src="http://i8.mifile.cn/v1/a1/3b4b04f7-ed9a-9bc3-e272-9b84d022607f.webp"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="l l1">
+                                            <div class="name">红米4 3GB+32GB</div>
+                                            <div class="price">999
+                                            
+                                            </div>
+                                        </div>
+                                        <div class="l l2">
+                                            <div class="brief">2.5D 玻璃，金属一体化机身，4100mAh 大电量</div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                        </div>
+                        <!--v-repeat-body.items-->
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="list_two_type1">
+                        <div class="box">
+                            <div class="item J_linksign-customize">
+                             
+                                    <div class="img">
+                                        <img class="big lazy" data-src="//i8.mifile.cn/v1/a1/8f8535a0-32ec-4aa0-6799-a27f978b618c.webp?width=360&amp;height=360"
+                                            src="http://i8.mifile.cn/v1/a1/8f8535a0-32ec-4aa0-6799-a27f978b618c.webp?width=360&amp;height=360"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="name">红米4 16GB版</div>
+                                        <div class="brief">长续航金属千元旗舰手机</div>
+                                        <div class="price">799
+                                        
+                                        
+                                        </div>
+                                    </div>
+                                  
+                            </div>
+                            <div class="item J_linksign-customize">
+                          
+                                    <div class="img">
+                                        <img class="big lazy" data-src="//i8.mifile.cn/v1/a1/62e16f32-360f-b4f6-e627-37ed8c9c5330.webp?width=360&amp;height=360"
+                                            src="http://i8.mifile.cn/v1/a1/62e16f32-360f-b4f6-e627-37ed8c9c5330.webp?width=360&amp;height=360"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="name">红米4X 32GB</div>
+                                        <div class="brief">超长续航，5” 舒适单手握感</div>
+                                        <div class="price">899
+                                        
+                                        
+                                        </div>
+                                    </div>
+                                   
+                            </div>
+                            <!--v-repeat-body.items-->
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="section">
+                
+                    <div class="divider_line" style="width:100%;height:0.16rem; border-bottom: 0.16rem solid #f5f5f5">
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="cells_auto_fill">
+                        <div data-index="8" class="body" style="width: 7.2rem; height: 0.8rem;">
+                            <div class="items J_linksign-customize" style="width: 7.2rem; height: 0.8rem; left: 0rem; top: 0rem;">
+                              
+                                    <div class="img">
+                                        <img class="lazy" data-src="//i8.mifile.cn/v1/a1/31afedac-0f1c-72dc-5367-9b9b8bd53e73.webp?width=720&amp;heihgt=80" src="http://i8.mifile.cn/v1/a1/31afedac-0f1c-72dc-5367-9b9b8bd53e73.webp?width=720&amp;heihgt=80"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                   
+                            </div>
+                            <!--v-repeat-body.items-->
+                        </div>
+                    </div>
+                
+                
+                
+                
+                </div>
+                <div class="section">
+                    <div class="list_one_type12">
+                        <div class="item J_linksign-customize">
+                          
+                                <div class="flex">
+                                    <div class="img">
+                                        <img class="big lazy" data-src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/1968beb79dfb208d70d24290e0dbbcf5.jpg?bg=FFFFFF"
+                                            src="http://cdn.cnbj0.fds.api.mi-img.com/b2c-mimall-media/1968beb79dfb208d70d24290e0dbbcf5.jpg?bg=FFFFFF"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                            <div class="tag">
+                                                <img class="lazy" data-src="//i8.mifile.cn/v1/a1/c4fa1765-6e6a-f5d2-8ec4-b1117e7d1ae5.webp" src="http://i8.mifile.cn/v1/a1/c4fa1765-6e6a-f5d2-8ec4-b1117e7d1ae5.webp"
+                                                    style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                            </div>
+                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="l l1">
+                                            <div class="name">红米Note 4 4GB+64GB</div>
+                                            <div class="price">1399
+                                            
+                                            </div>
+                                        </div>
+                                        <div class="l l2">
+                                            <div class="brief">全金属十核旗舰手机，4100mAh 超长续航</div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                           
+                        </div>
+                        <!--v-repeat-body.items-->
+                    </div>
+                
+                </div>
+                <div class="section">
+                    <div class="list_two_type1">
+                        <div class="box">
+                            <div class="item J_linksign-customize">
+                       
+                                    <div class="img">
+                                        <img class="big lazy" data-src="//i8.mifile.cn/v1/a1/df54926a-f3e2-863a-48b9-c1c861a4e9de.webp?width=360&amp;height=360"
+                                            src="http://i8.mifile.cn/v1/a1/df54926a-f3e2-863a-48b9-c1c861a4e9de.webp?width=360&amp;height=360"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="name">红米Note 4X 32GB</div>
+                                        <div class="brief">多彩金属 / 超长续航</div>
+                                        <div class="price">999
+                                        
+                                        
+                                        </div>
+                                    </div>
+                                 
+                            </div>
+                            <div class="item J_linksign-customize">
+                    
+                                    <div class="img">
+                                        <img class="big lazy" data-src="//i8.mifile.cn/v1/a1/62e16f32-360f-b4f6-e627-37ed8c9c5330.webp?width=360&amp;height=360"
+                                            src="http://i8.mifile.cn/v1/a1/62e16f32-360f-b4f6-e627-37ed8c9c5330.webp?width=360&amp;height=360"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="name">红米4X 32GB</div>
+                                        <div class="brief">超长续航，5” 舒适单手握感</div>
+                                        <div class="price">899
+                                        
+                                        
+                                        </div>
+                                    </div>
+                              
+                            </div>
+                            <!--v-repeat-body.items-->
+                        </div>
+                    </div>
+                
+                </div>
+                <div class="section">
+                    <div class="list_two_type1">
+                        <div class="box">
+                            <div class="item J_linksign-customize">
+                  
+                                    <div class="img">
+                                        <img class="big lazy" data-src="//i8.mifile.cn/v1/a1/df54926a-f3e2-863a-48b9-c1c861a4e9de.webp?width=360&amp;height=360"
+                                            src="http://i8.mifile.cn/v1/a1/df54926a-f3e2-863a-48b9-c1c861a4e9de.webp?width=360&amp;height=360"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="name">红米Note 4X 32GB</div>
+                                        <div class="brief">多彩金属 / 超长续航</div>
+                                        <div class="price">999
+                                        
+                                        
+                                        </div>
+                                    </div>
+                                 
+                            </div>
+                            <div class="item J_linksign-customize">
+                  
+                                    <div class="img">
+                                        <img class="big lazy" data-src="//i8.mifile.cn/v1/a1/62e16f32-360f-b4f6-e627-37ed8c9c5330.webp?width=360&amp;height=360"
+                                            src="http://i8.mifile.cn/v1/a1/62e16f32-360f-b4f6-e627-37ed8c9c5330.webp?width=360&amp;height=360"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="name">红米4X 32GB</div>
+                                        <div class="brief">超长续航，5” 舒适单手握感</div>
+                                        <div class="price">899
+                                        
+                                        
+                                        </div>
+                                    </div>
+                               
+                            </div>
+                            <!--v-repeat-body.items-->
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                
+                    <div class="divider_line" style="width:100%;height:0.16rem; border-bottom: 0.16rem solid #f5f5f5">
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="cells_auto_fill">
+                        <div data-index="13" class="body" style="width: 7.2rem; height: 0.8rem;">
+                            <div class="items J_linksign-customize" style="width: 7.2rem; height: 0.8rem; left: 0rem; top: 0rem;">
+            
+                                    <div class="img">
+                                        <img class="lazy" data-src="//i8.mifile.cn/v1/a1/5ea6c6fa-af8f-09ca-aee7-0c4682398e16.webp?width=720&amp;heihgt=80"
+                                            src="http://i8.mifile.cn/v1/a1/5ea6c6fa-af8f-09ca-aee7-0c4682398e16.webp?width=720&amp;heihgt=80"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                
+                            </div>
+                            <!--v-repeat-body.items-->
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="list_one_type12">
+                        <div class="item J_linksign-customize">
+                 
+                                <div class="flex">
+                                    <div class="img">
+                                        <img class="big lazy" data-src="http://i8.mifile.cn/v1/a1/7a16dc7c-bf34-4890-9597-a8209c16ccaf.webp" src="http://i8.mifile.cn/v1/a1/7a16dc7c-bf34-4890-9597-a8209c16ccaf.webp"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="l l1">
+                                            <div class="name">红米Note 4X 3+32GB</div>
+                                            <div class="price">999
+                                            
+                                            </div>
+                                        </div>
+                                        <div class="l l2">
+                                            <div class="brief">多彩金属 / 4100mAh超长续航 / 骁龙625处理器</div>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                                </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="list_two_type1">
+                        <div class="box">
+                            <div class="item J_linksign-customize">
+                               
+                                    <div class="img">
+                                        <img class="big lazy" data-src="//i8.mifile.cn/v1/a1/df54926a-f3e2-863a-48b9-c1c861a4e9de.webp?width=360&amp;height=360"
+                                            src="http://i8.mifile.cn/v1/a1/df54926a-f3e2-863a-48b9-c1c861a4e9de.webp?width=360&amp;height=360"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="name">红米Note 4X 32GB</div>
+                                        <div class="brief">多彩金属 / 超长续航</div>
+                                        <div class="price">999
+                                        
+                                        
+                                        </div>
+                                    </div>
+                                    
+                            </div>
+                            <div class="item J_linksign-customize">
+                   
+                                    <div class="img">
+                                        <img class="big lazy" data-src="//i8.mifile.cn/v1/a1/62e16f32-360f-b4f6-e627-37ed8c9c5330.webp?width=360&amp;height=360"
+                                            src="http://i8.mifile.cn/v1/a1/62e16f32-360f-b4f6-e627-37ed8c9c5330.webp?width=360&amp;height=360"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                    <div class="info">
+                                        <div class="name">红米4X 32GB</div>
+                                        <div class="brief">超长续航，5” 舒适单手握感</div>
+                                        <div class="price">899
+                                        
+                                        
+                                        </div>
+                                    </div>
+                                 
+                            </div>
+                            <!--v-repeat-body.items-->
+                        </div>
+                    </div>
+                </div>
+                <div class="section">
+                
+                    <div class="divider_line" style="width:100%;height:0.16rem; border-bottom: 0.16rem solid #f5f5f5">
+                    </div>
+                </div>
+                <div class="section">
+                    <div class="cells_auto_fill">
+                        <div data-index="17" class="body" style="width: 7.2rem; height: 4.8rem;">
+                            <div class="items J_linksign-customize" style="width: 3.58rem; height: 4.8rem; left: 0rem; top: 0rem;">
+                               
+                                    <div class="img">
+                                        <img class="lazy" data-src="//i8.mifile.cn/v1/a1/56a43003-812b-fa5f-2fcc-a9dddd1c4e7f.webp?width=358&amp;heihgt=480" src="http://i8.mifile.cn/v1/a1/56a43003-812b-fa5f-2fcc-a9dddd1c4e7f.webp?width=358&amp;heihgt=480"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                
+                            </div>
+                            <div class="items J_linksign-customize" style="width: 3.58rem; height: 4.8rem; left: 3.62rem; top: 0rem;">
+                              
+                                    <div class="img">
+                                        <img class="lazy" data-src="//i8.mifile.cn/v1/a1/d55778b9-7144-2d36-1450-694b8a47b9db.webp?width=358&amp;heihgt=480" src="http://i8.mifile.cn/v1/a1/d55778b9-7144-2d36-1450-694b8a47b9db.webp?width=358&amp;heihgt=480"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                
+                            </div>
+                            <!--v-repeat-body.items-->
+                        </div>
+                    </div></div>
+                <div class="section">
+                    <div class="cells_auto_fill">
+                        <div data-index="17" class="body" style="width: 7.2rem; height: 4.8rem;">
+                            <div class="items J_linksign-customize" style="width: 3.58rem; height: 4.8rem; left: 0rem; top: 0rem;">
+                               
+                                    <div class="img">
+                                        <img class="lazy" data-src="//i8.mifile.cn/v1/a1/56a43003-812b-fa5f-2fcc-a9dddd1c4e7f.webp?width=358&amp;heihgt=480" src="http://i8.mifile.cn/v1/a1/56a43003-812b-fa5f-2fcc-a9dddd1c4e7f.webp?width=358&amp;heihgt=480"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                               
+                            </div>
+                            <div class="items J_linksign-customize" style="width: 3.58rem; height: 4.8rem; left: 3.62rem; top: 0rem;">
+                              
+                                    <div class="img">
+                                        <img class="lazy" data-src="//i8.mifile.cn/v1/a1/d55778b9-7144-2d36-1450-694b8a47b9db.webp?width=358&amp;heihgt=480" src="http://i8.mifile.cn/v1/a1/d55778b9-7144-2d36-1450-694b8a47b9db.webp?width=358&amp;heihgt=480"
+                                            style="transform-origin: 0px 0px 0px; opacity: 1; transform: scale(1, 1);">
+                                        
+                                    </div>
+                                 
+                            </div>
+                            <!--v-repeat-body.items-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+    
+ 
+    // console.log(user)
+    const allImg = document.querySelectorAll('.img')
+    allImg.forEach(function(img) {
+        img.addEventListener('click', function(e){
+            let ele = event.target;
+            if (ele.tagName == 'IMG') {
+             
+                let imgSrc = ele.dataset.src;
+                location.href=`/view?id=${imgSrc}`
+                
+            }
+        })
+        
+    }, this);
+    </script>
+</body>
+
+</html>
